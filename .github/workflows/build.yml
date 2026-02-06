@@ -89,9 +89,8 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    # Required secrets:
-    # - GITHUB_TOKEN: Automatically provided by GitHub Actions
-    # - NPM_TOKEN: Must be configured in repository settings for npm publishing
+    environment:
+      name: npm-publish
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
