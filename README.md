@@ -6,7 +6,7 @@ This package uses the official pandoc WASM binary distributed by the Pandoc proj
 
 ## [Live demo](https://pandoc.github.io/pandoc-wasm)
 
-Stdin on the left, stdout on the right, command line arguments at the bottom. No convert button, output is produced dynamically as input changes.
+Convert documents without leaving the browser.
 
 ### Running the Demo Locally
 
