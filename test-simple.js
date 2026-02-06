@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 /**
- * Simple test script for wasm-pandoc
+ * Simple test script for pandoc-wasm
  *
  * This package works in both Node.js and browser environments.
  */
 
 import {convert, query} from "./index.js"
 
-console.log("Testing wasm-pandoc...\n")
+console.log("Testing pandoc-wasm...\n")
 
 async function runTests() {
     try {
@@ -33,7 +33,7 @@ async function runTests() {
         console.log("\nTest 4: Markdown to HTML conversion")
         const markdown = `# Hello World
 
-This is a **test** of the wasm-pandoc package.
+This is a **test** of the pandoc-wasm package.
 
 - Item 1
 - Item 2
@@ -77,7 +77,7 @@ This is a **test** of the wasm-pandoc package.
         }
 
         console.log("\n✓ All tests completed successfully!")
-        console.log("\nwasm-pandoc is working correctly.")
+        console.log("\npandoc-wasm is working correctly.")
     } catch (error) {
         console.error("\n✗ Test failed with error:")
         console.error(error)

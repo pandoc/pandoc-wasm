@@ -1,4 +1,4 @@
-/* wasm-pandoc: Main entry point with environment detection
+/* pandoc-wasm: Main entry point with environment detection
 
    This file detects whether we're running in Node.js or a browser
    and loads the appropriate implementation.

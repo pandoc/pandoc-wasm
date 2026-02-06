@@ -1,4 +1,4 @@
-// Basic usage examples for wasm-pandoc
+// Basic usage examples for pandoc-wasm
 
 import {convert, pandoc, query} from "../index.js"
 

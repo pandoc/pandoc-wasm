@@ -1,4 +1,4 @@
-/* wasm-pandoc: Node.js entry point
+/* pandoc-wasm: Node.js entry point
 
    This file is used when running in Node.js.
    It loads the WASM binary from the filesystem.

@@ -1,4 +1,4 @@
-# GitHub Actions Workflow for wasm-pandoc
+# GitHub Actions Workflow for pandoc-wasm
 #
 # This workflow:
 # 1. Tests the package on every push/PR
@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -62,7 +62,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -99,8 +99,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
         run: npm install
 
@@ -140,19 +140,19 @@ jobs:
       - name: Verify package contents
         run: |
           echo "Package contents:"
-          tar -tzf wasm-pandoc-${{ steps.extract-version.outputs.version }}.tgz | sort
+          tar -tzf pandoc-wasm-${{ steps.extract-version.outputs.version }}.tgz | sort
           echo ""
           echo "Verifying pandoc.wasm is in package:"
-          tar -tzf wasm-pandoc-${{ steps.extract-version.outputs.version }}.tgz | grep pandoc.wasm || (echo "ERROR: pandoc.wasm not found in package!" && exit 1)
+          tar -tzf pandoc-wasm-${{ steps.extract-version.outputs.version }}.tgz | grep pandoc.wasm || (echo "ERROR: pandoc.wasm not found in package!" && exit 1)
           echo "✓ pandoc.wasm is included in package"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: wasm-pandoc-${{ steps.extract-version.outputs.version }}.tgz
+          files: pandoc-wasm-${{ steps.extract-version.outputs.version }}.tgz
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            Release of wasm-pandoc ${{ steps.extract-version.outputs.version }}
+            Release of pandoc-wasm ${{ steps.extract-version.outputs.version }}
 
             **What's included:**
             - Official Pandoc WASM binary (distributed with package)
@@ -163,10 +163,10 @@ jobs:
 
             **Installation:**
             ```bash
-            npm install wasm-pandoc@${{ steps.extract-version.outputs.version }}
+            npm install pandoc-wasm@${{ steps.extract-version.outputs.version }}
             ```
 
-            See [CHANGELOG.md](https://github.com/fiduswriter/wasm-pandoc/blob/main/CHANGELOG.md) for complete details.
+            See [CHANGELOG.md](https://github.com/pandoc/pandoc-wasm/blob/main/CHANGELOG.md) for complete details.
 
       - name: Publish to NPM
         if: success()
@@ -176,4 +176,4 @@ jobs:
         if: success()
         run: |
           echo "✓ Package published to npm with tag: ${{ steps.extract-version.outputs.npm_tag }}"
-          echo "Install with: npm install wasm-pandoc@${{ steps.extract-version.outputs.version }}"
+          echo "Install with: npm install pandoc-wasm@${{ steps.extract-version.outputs.version }}"

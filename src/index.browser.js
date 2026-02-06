@@ -1,4 +1,4 @@
-/* wasm-pandoc: Browser entry point
+/* pandoc-wasm: Browser entry point
 
    This file is used when bundling for browsers.
    It loads the WASM binary via fetch/import.

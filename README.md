@@ -1,10 +1,10 @@
-# `wasm-pandoc`
+# `pandoc-wasm`
 
 Pandoc WASM binary wrapper for use in browsers and Node.js.
 
 This package uses the official pandoc WASM binary distributed by the Pandoc project.
 
-## [Live demo](https://fiduswriter.github.io/wasm-pandoc)
+## [Live demo](https://pandoc.github.io/pandoc-wasm)
 
 Stdin on the left, stdout on the right, command line arguments at the bottom. No convert button, output is produced dynamically as input changes.
 
@@ -28,7 +28,7 @@ python3 -m http.server 8000
 ## Installation
 
 ```bash
-npm install wasm-pandoc
+npm install pandoc-wasm
 ```
 
 The package includes the official pandoc.wasm binary (currently version 3.9). No additional downloads are required during installation.
@@ -65,11 +65,13 @@ The package exports two main functions that match the official pandoc WASM API:
 Convert documents using pandoc.
 
 **Parameters:**
+
 - `options` (Object): JavaScript object representing pandoc options. This corresponds to the format used in pandoc's default files. Example: `{ from: "markdown", to: "html", standalone: true }`
 - `stdin` (String|null): Input content as a string, or null if using input files
 - `files` (Object): Object with filenames as keys and String/Blob objects as values. Text files (like bibliographies) can be provided as strings for convenience, while binary files (like images) should be Blobs. This includes input files, resources (images, bibliographies, etc.), and will be updated with output files.
 
 **Returns:** Promise resolving to an object with:
+
 - `stdout` (String): The main output (if no output file specified)
 - `stderr` (String): Error messages and warnings
 - `warnings` (Array): Array of structured warning objects
@@ -79,13 +81,13 @@ Convert documents using pandoc.
 **Example:**
 
 ```js
-import { convert } from "wasm-pandoc";
+import { convert } from "pandoc-wasm";
 
 const options = {
   from: "markdown",
   to: "html",
   standalone: true,
-  "table-of-contents": true
+  "table-of-contents": true,
 };
 
 const markdown = "# Hello World\n\nThis is a **test**.";
@@ -99,13 +101,13 @@ console.log(result.warnings); // Any warnings
 **With files:**
 
 ```js
-import { convert } from "wasm-pandoc";
+import { convert } from "pandoc-wasm";
 
 const options = {
   from: "markdown",
   to: "docx",
   "output-file": "output.docx",
-  bibliography: "references.bib"
+  bibliography: "references.bib",
 };
 
 // Text files can be strings, binary files should be Blobs
@@ -116,7 +118,7 @@ const bibContent = `@article{smith2020,
 }`;
 
 const files = {
-  "references.bib": bibContent  // String is fine for text files!
+  "references.bib": bibContent, // String is fine for text files!
 };
 
 const markdown = "# My Paper\n\nSome citation [@smith2020].";
@@ -132,17 +134,17 @@ const docxBlob = result.files["output.docx"];
 Pandoc can extract embedded media (images, etc.) from documents during conversion. The `convert()` function automatically captures any extracted media files and returns them in the `mediaFiles` object. This contains ONLY the extracted media (like images from a DOCX file), not the main output file or input files.
 
 ```js
-import { convert } from "wasm-pandoc";
+import { convert } from "pandoc-wasm";
 
 // Convert DOCX with embedded images to markdown
 const options = {
   from: "docx",
   to: "markdown",
-  "extract-media": "media"  // Extract to media/ directory
+  "extract-media": "media", // Extract to media/ directory
 };
 
 const files = {
-  "document.docx": docxBlob
+  "document.docx": docxBlob,
 };
 
 const result = await convert(options, null, files);
@@ -155,21 +157,21 @@ console.log("Extracted media files:", Object.keys(result.mediaFiles));
 console.log("All files:", Object.keys(result.files));
 
 // The markdown output references these files
-console.log(result.stdout);  // Contains ![](media/image1.png) etc.
+console.log(result.stdout); // Contains ![](media/image1.png) etc.
 ```
-
 
 #### File Object Structure
 
 The `files` parameter and return value is a plain JavaScript object (dictionary) where:
+
 - **Keys** are filenames (strings)
 - **Values** are Strings (for text files) or Blob objects (for binary files)
 
 ```js
 const files = {
-  "image.png": imageBlob,           // Binary file - use Blob
-  "references.bib": bibTextString,  // Text file - can use string!
-  "style.css": cssTextString        // Text file - can use string!
+  "image.png": imageBlob, // Binary file - use Blob
+  "references.bib": bibTextString, // Text file - can use string!
+  "style.css": cssTextString, // Text file - can use string!
 };
 ```
 
@@ -178,9 +180,11 @@ const files = {
 Query pandoc for information about formats, extensions, etc.
 
 **Parameters:**
+
 - `options` (Object): Object with a `query` property and optional `format` property
 
 **Supported queries:**
+
 - `version`: Get pandoc version
 - `input-formats`: List of supported input formats
 - `output-formats`: List of supported output formats
@@ -194,7 +198,7 @@ Query pandoc for information about formats, extensions, etc.
 **Example:**
 
 ```js
-import { query } from "wasm-pandoc";
+import { query } from "pandoc-wasm";
 
 // Get version
 const version = await query({ query: "version" });
@@ -207,36 +211,34 @@ console.log(inputFormats); // ["markdown", "html", "latex", ...]
 // Get extensions for markdown
 const extensions = await query({
   query: "extensions-for-format",
-  format: "markdown"
+  format: "markdown",
 });
 console.log(extensions); // { "smart": true, "emoji": false, ... }
 ```
 
 ### Legacy API (Backward Compatibility)
 
-For backward compatibility with earlier versions of wasm-pandoc:
+For backward compatibility with earlier versions of pandoc-wasm:
 
 #### `pandoc(args_str, inData, resources)`
 
 **Parameters:**
+
 - `args_str` (String): Command line arguments as a string (e.g., "-f markdown -t html -s")
 - `inData` (String|Blob): Input content
 - `resources` (Array): Array of objects with `filename` and `contents` properties
 
 **Returns:** Promise resolving to:
+
 - `out` (String|Blob): Output content
 - `mediaFiles` (Map): Map of any additional generated files
 
 **Example:**
 
 ```js
-import { pandoc } from "wasm-pandoc";
+import { pandoc } from "pandoc-wasm";
 
-const output = await pandoc(
-    "-f markdown -t html -s",
-    "# Hello World",
-    []
-);
+const output = await pandoc("-f markdown -t html -s", "# Hello World", []);
 
 console.log(output.out); // HTML output
 ```
@@ -244,17 +246,17 @@ console.log(output.out); // HTML output
 **With resources:**
 
 ```js
-import { pandoc } from "wasm-pandoc";
+import { pandoc } from "pandoc-wasm";
 
 const output = await pandoc(
-    "-f markdown -t html --extract-media=media",
-    markdownContent,
-    [
-        {
-            filename: "image.png",
-            contents: imageBlob
-        }
-    ]
+  "-f markdown -t html --extract-media=media",
+  markdownContent,
+  [
+    {
+      filename: "image.png",
+      contents: imageBlob,
+    },
+  ],
 );
 
 console.log(output.out); // HTML output
@@ -270,17 +272,14 @@ This package works in both **Node.js** and **browser** environments.
 The package automatically detects when running in Node.js and loads the WASM file from the filesystem. No special configuration is needed:
 
 ```js
-import { convert, query } from "wasm-pandoc";
+import { convert, query } from "pandoc-wasm";
 
 // Works directly in Node.js
-const result = await convert(
-  { from: "markdown", to: "html" },
-  "# Hello",
-  {}
-);
+const result = await convert({ from: "markdown", to: "html" }, "# Hello", {});
 ```
 
 **Requirements:**
+
 - Node.js 18+ (for native `fetch` and WASM support)
 - ES modules (`"type": "module"` in package.json or `.mjs` extension)
 
@@ -298,35 +297,33 @@ When using a bundler for browser deployment, configure it to handle `.wasm` file
 
 ```js
 module.exports = {
-    module: {
-        rules: [
-            {
-                test: /\.(wasm)$/,
-                type: "asset/resource"
-            }
-        ]
-    }
-}
+  module: {
+    rules: [
+      {
+        test: /\.(wasm)$/,
+        type: "asset/resource",
+      },
+    ],
+  },
+};
 ```
 
 ### Vite
 
 ```js
 export default {
-  assetsInclude: ['**/*.wasm']
-}
+  assetsInclude: ["**/*.wasm"],
+};
 ```
 
 ### Rollup
 
 ```js
-import { wasm } from '@rollup/plugin-wasm';
+import { wasm } from "@rollup/plugin-wasm";
 
 export default {
-  plugins: [
-    wasm()
-  ]
-}
+  plugins: [wasm()],
+};
 ```
 
 ## Common Options
@@ -395,6 +392,7 @@ This package uses **semantic versioning (semver)** independently from Pandoc's v
 The Pandoc version is specified in `pandoc-version.txt` and the corresponding `pandoc.wasm` binary is included in the npm package. When preparing a new release, maintainers run `npm run prepare` to download the WASM binary specified in `pandoc-version.txt`.
 
 **For maintainers:** To update the Pandoc version:
+
 1. Update the version in `pandoc-version.txt`
 2. Run `npm run prepare` to download the new WASM binary to `src/pandoc.wasm`
 3. Commit `pandoc-version.txt` (but NOT `src/pandoc.wasm` - it stays in `.gitignore`)
@@ -403,6 +401,7 @@ The Pandoc version is specified in `pandoc-version.txt` and the corresponding `p
 6. Publish the package with `npm publish`
 
 **Note:** The `src/pandoc.wasm` file is:
+
 - ❌ NOT committed to git (keeps repository small)
 - ✅ Included in the npm package (users get it with `npm install`)
 - Downloaded by maintainers during the build/prepare step
@@ -419,6 +418,7 @@ The Pandoc version is specified in `pandoc-version.txt` and the corresponding `p
   - Cheng Shao (tweag/pandoc-wasm)
   - George Stagg (georgestagg/pandoc-wasm)
   - Yuto Takahashi (y-taka-23/wasm-pandoc)
+  - Johannes Wilm (fiduswriter/wasm-pandoc)
 
 ## License
 

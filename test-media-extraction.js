@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Test script for media extraction functionality in wasm-pandoc
+ * Test script for media extraction functionality in pandoc-wasm
  *
  * Tests the new convert() API's ability to automatically extract media files
  * and include them in the returned files object.
@@ -10,7 +10,7 @@
 import {readFileSync} from "fs"
 import {convert} from "./index.js"
 
-console.log("Testing media extraction in wasm-pandoc...\n")
+console.log("Testing media extraction in pandoc-wasm...\n")
 
 async function runTests() {
     try {

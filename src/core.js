@@ -1,4 +1,4 @@
-/* wasm-pandoc: Core pandoc logic (environment-agnostic)
+/* pandoc-wasm: Core pandoc logic (environment-agnostic)
 
    This file contains all the pandoc conversion logic but doesn't handle
    WASM loading. The WASM binary must be provided by the caller.

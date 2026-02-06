@@ -1,5 +1,5 @@
 {
-  "name": "wasm-pandoc",
+  "name": "pandoc-wasm",
   "version": "1.0.0",
   "description": "Pandoc WASM binary wrapper for use in browsers and Node.js.",
   "type": "module",
@@ -31,17 +31,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fiduswriter/wasm-pandoc.git"
+    "url": "git+https://github.com/pandoc/pandoc-wasm.git"
   },
-  "homepage": "https://github.com/fiduswriter/wasm-pandoc",
+  "homepage": "https://github.com/pandoc/pandoc-wasm",
   "bugs": {
-    "url": "https://github.com/fiduswriter/wasm-pandoc/issues"
+    "url": "https://github.com/pandoc/pandoc-wasm/issues"
   },
   "keywords": [
     "pandoc",
     "wasm"
   ],
   "author": "Johannes Wilm",
+  "contributors": [
+    "Johannes Wilm <mail@johanneswilm.org>",
+    "George Stagg <george.stagg@posit.co>",
+    "John MacFarlane <jgm@berkeley.edu>"
+  ],
   "license": "GPL-2.0-or-later",
   "dependencies": {
     "@bjorn3/browser_wasi_shim": "^0.4.2"

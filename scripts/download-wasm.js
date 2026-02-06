@@ -212,7 +212,7 @@ async function main() {
         console.log(
             `✓ Successfully downloaded Pandoc ${targetVersion} WASM binary`
         )
-        console.log("  (pandoc.js wrapper is provided by wasm-pandoc package)")
+        console.log("  (pandoc.js wrapper is provided by pandoc-wasm package)")
     } catch (error) {
         console.error("\n❌ Error downloading pandoc WASM:", error.message)
         console.error("\nYou can manually download pandoc.wasm from:")

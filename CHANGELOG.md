@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [UNRELEASED] - 2025-02-04
+## pandoc-wasm (development version)
+
+### Organisation
+
+This repository has been migrated to the pandoc-wasm package at https://github.com/pandoc/pandoc-wasm.
 
 ### Major Changes
 
@@ -39,29 +43,29 @@ This is a complete rewrite of the package to use the **official Pandoc WASM bina
 ### Migration Guide
 
 #### Old API (still supported for backward compatibility):
-```javascript
-import { pandoc } from "wasm-pandoc";
 
-const output = await pandoc(
-    "-f markdown -t html -s",
-    markdownContent,
-    [{ filename: "image.png", contents: imageBlob }]
-);
+```javascript
+import { pandoc } from "pandoc-wasm";
+
+const output = await pandoc("-f markdown -t html -s", markdownContent, [
+  { filename: "image.png", contents: imageBlob },
+]);
 console.log(output.out);
 ```
 
 #### New API (recommended):
+
 ```javascript
-import { convert } from "wasm-pandoc";
+import { convert } from "pandoc-wasm";
 
 const options = {
-    from: "markdown",
-    to: "html",
-    standalone: true
+  from: "markdown",
+  to: "html",
+  standalone: true,
 };
 
 const files = {
-    "image.png": imageBlob
+  "image.png": imageBlob,
 };
 
 const result = await convert(options, markdownContent, files);
@@ -70,13 +74,14 @@ console.log(result.warnings); // Access structured warnings
 ```
 
 #### Querying Pandoc:
+
 ```javascript
-import { query } from "wasm-pandoc";
+import { query } from "pandoc-wasm";
 
 const version = await query({ query: "version" });
 const formats = await query({ query: "input-formats" });
 const extensions = await query({
-    query: "extensions-for-format",
-    format: "markdown"
+  query: "extensions-for-format",
+  format: "markdown",
 });
 ```
