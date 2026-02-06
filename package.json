@@ -1,6 +1,6 @@
 {
   "name": "pandoc-wasm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pandoc WASM binary wrapper for use in browsers and Node.js.",
   "type": "module",
   "main": "index.js",

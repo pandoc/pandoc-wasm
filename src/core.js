@@ -79,13 +79,15 @@ export function createPandocInstance(wasmBinary) {
         // Main API: query function
         function query(options) {
             const opts_str = JSON.stringify(options)
-            const opts_ptr = instance.exports.malloc(opts_str.length)
+            const encoded = new TextEncoder().encode(opts_str)
+            // Allocate memory based on byte length, not character count
+            const opts_ptr = instance.exports.malloc(encoded.length)
             new TextEncoder().encodeInto(
                 opts_str,
                 new Uint8Array(
                     instance.exports.memory.buffer,
                     opts_ptr,
-                    opts_str.length
+                    encoded.length
                 )
             )
 
@@ -96,7 +98,7 @@ export function createPandocInstance(wasmBinary) {
             fileSystem.set("stdout", out_file)
             fileSystem.set("stderr", err_file)
 
-            instance.exports.query(opts_ptr, opts_str.length)
+            instance.exports.query(opts_ptr, encoded.length)
 
             const err_text = new TextDecoder("utf-8", {fatal: true}).decode(
                 err_file.data
@@ -113,13 +115,15 @@ export function createPandocInstance(wasmBinary) {
         // Main API: convert function
         async function convert(options, stdin, files) {
             const opts_str = JSON.stringify(options)
-            const opts_ptr = instance.exports.malloc(opts_str.length)
+
+            const encoded = new TextEncoder().encode(opts_str)
+            const opts_ptr = instance.exports.malloc(encoded.length)
             new TextEncoder().encodeInto(
                 opts_str,
                 new Uint8Array(
                     instance.exports.memory.buffer,
                     opts_ptr,
-                    opts_str.length
+                    encoded.length
                 )
             )
 
@@ -179,7 +183,7 @@ export function createPandocInstance(wasmBinary) {
             }
 
             // Run conversion
-            instance.exports.convert(opts_ptr, opts_str.length)
+            instance.exports.convert(opts_ptr, encoded.length)
 
             // Collect output file if generated
             if (options["output-file"]) {
