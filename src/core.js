@@ -127,9 +127,6 @@ export function createPandocInstance(wasmBinary) {
                 )
             )
 
-            // Clone files object to avoid mutating the input parameter
-            files = {...files}
-
             // Setup filesystem
             fileSystem.clear()
             const in_file = new File(new Uint8Array(), {readonly: true})

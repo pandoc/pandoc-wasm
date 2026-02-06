@@ -5,7 +5,7 @@ package-lock.json
 # WASM files (not committed to git, but included in npm package)
 /src/pandoc.wasm
 /src/.pandoc-wasm-version
-/demo/pandoc.wasm
+/demo/dist/
 
 # Build artifacts
 dist/

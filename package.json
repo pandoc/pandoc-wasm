@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "prepare": "node scripts/download-wasm.js",
-    "setup-demo": "node scripts/setup-demo.js",
+    "setup-demo": "node scripts/setup-demo.js && esbuild demo/src/index.js --bundle --minify --format=esm --outfile=demo/dist/index.js && cp demo/src/index.html demo/dist/index.html",
     "test": "node test-simple.js"
   },
   "repository": {
@@ -50,5 +50,8 @@
   "license": "GPL-2.0-or-later",
   "dependencies": {
     "@bjorn3/browser_wasi_shim": "^0.4.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.3"
   }
 }

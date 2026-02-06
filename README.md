@@ -20,7 +20,7 @@ npm install
 npm run setup-demo
 
 # Serve the demo
-cd demo
+cd demo/dist
 python3 -m http.server 8000
 # Open http://localhost:8000 in your browser
 ```
@@ -49,7 +49,7 @@ For browser testing, use the demo:
 
 ```bash
 npm run setup-demo
-cd demo
+cd demo/dist
 python3 -m http.server 8000
 # Open http://localhost:8000 in your browser
 ```
