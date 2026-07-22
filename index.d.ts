@@ -33,8 +33,14 @@ declare module "pandoc-wasm" {
     export const pandoc: (
         args_str: string,
         inData: string | Blob,
-        resources?: { filename: string; contents: string | Blob }[],
+        resources?: Array<{
+            filename: string;
+            contents: string | Blob
+        }>,
     ) => Promise<
-        { out: string | Blob; mediaFiles: Map<string, string | Blob> }
+        {
+            out: string | Blob;
+            mediaFiles: Map<string, string | Blob>;
+        }
     >;
 }
