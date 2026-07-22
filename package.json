@@ -7,14 +7,15 @@
   "browser": "./src/index.browser.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "node": "./src/index.node.js",
       "browser": "./src/index.browser.js",
-      "types": "./index.d.ts",
       "default": "./index.js"
     }
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "src/index.js",
     "src/index.node.js",
     "src/index.browser.js",
