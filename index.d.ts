@@ -34,7 +34,7 @@ export const pandoc: (
     inData: string | Blob,
     resources?: Array<{
         filename: string;
-        contents: string | Blob
+        contents: string | Blob;
     }>,
 ) => Promise<
     {
